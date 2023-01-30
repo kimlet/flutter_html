@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:chewie/chewie.dart';
-import 'package:chewie_audio/chewie_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_html/html_parser.dart';
@@ -16,7 +14,6 @@ import 'package:flutter_html/style.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html/dom.dart' as dom;
-import 'package:video_player/video_player.dart';
 
 /// A [ReplacedElement] is a type of [StyledElement] that does not require its [children] to be rendered.
 ///
@@ -129,17 +126,7 @@ class AudioContentElement extends ReplacedElement {
       width: context.style.width ?? 300,
       height: Theme.of(context.buildContext).platform == TargetPlatform.android
           ? 48 : 75,
-      child: ChewieAudio(
-        controller: ChewieAudioController(
-          videoPlayerController: VideoPlayerController.network(
-            src.first ?? "",
-          ),
-          autoPlay: autoplay,
-          looping: loop,
-          showControls: showControls,
-          autoInitialize: true,
-        ),
-      ),
+      child: SizedBox.shrink(),
     );
   }
 }
@@ -176,21 +163,7 @@ class VideoContentElement extends ReplacedElement {
       aspectRatio: _width / _height,
       child: Container(
         key: AnchorKey.of(context.parser.key, this),
-        child: Chewie(
-          controller: ChewieController(
-            videoPlayerController: VideoPlayerController.network(
-              src.first ?? "",
-            ),
-            placeholder: poster != null
-                ? Image.network(poster!)
-                : Container(color: Colors.black),
-            autoPlay: autoplay,
-            looping: loop,
-            showControls: showControls,
-            autoInitialize: true,
-            aspectRatio: _width / _height,
-          ),
-        ),
+        child: SizedBox.shrink(),
       ),
     );
   }
